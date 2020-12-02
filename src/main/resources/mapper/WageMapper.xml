@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kurfusy.interview.mapper.WageMapper">
+    <resultMap id="BaseResultMap" type="com.kurfusy.interview.pojo.Wage">
+        <id column="salary_id" jdbcType="VARCHAR" property="salaryId"/>
+        <result column="pay_year" jdbcType="VARCHAR" property="payYear"/>
+        <result column="pay_month" jdbcType="VARCHAR" property="payMonth"/>
+        <result column="salary" jdbcType="DECIMAL" property="salary"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        salary_id, pay_year, pay_month, salary
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wage
+        where salary_id = #{salaryId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from wage
+        where salary_id = #{salaryId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.kurfusy.interview.pojo.Wage">
+        insert into wage (salary_id, pay_year, pay_month,
+        salary)
+        values (#{salaryId,jdbcType=VARCHAR}, #{payYear,jdbcType=VARCHAR}, #{payMonth,jdbcType=VARCHAR},
+        #{salary,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="com.kurfusy.interview.pojo.Wage">
+        insert into wage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="salaryId != null">
+                salary_id,
+            </if>
+            <if test="payYear != null">
+                pay_year,
+            </if>
+            <if test="payMonth != null">
+                pay_month,
+            </if>
+            <if test="salary != null">
+                salary,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="salaryId != null">
+                #{salaryId,jdbcType=VARCHAR},
+            </if>
+            <if test="payYear != null">
+                #{payYear,jdbcType=VARCHAR},
+            </if>
+            <if test="payMonth != null">
+                #{payMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                #{salary,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kurfusy.interview.pojo.Wage">
+        update wage
+        <set>
+            <if test="payYear != null">
+                pay_year = #{payYear,jdbcType=VARCHAR},
+            </if>
+            <if test="payMonth != null">
+                pay_month = #{payMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                salary = #{salary,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where salary_id = #{salaryId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kurfusy.interview.pojo.Wage">
+        update wage
+        set pay_year = #{payYear,jdbcType=VARCHAR},
+        pay_month = #{payMonth,jdbcType=VARCHAR},
+        salary = #{salary,jdbcType=DECIMAL}
+        where salary_id = #{salaryId,jdbcType=VARCHAR}
+    </update>
+</mapper>
