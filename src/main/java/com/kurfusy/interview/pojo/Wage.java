@@ -2,6 +2,9 @@ package com.kurfusy.interview.pojo;
 
 import java.math.BigDecimal;
 
+/**
+ * @author Administrator
+ */
 public class Wage {
     private String salaryId;
 
